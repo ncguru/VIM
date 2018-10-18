@@ -1,15 +1,16 @@
 
 "=========================================================================
+source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 
-"source $VIMRUNTIME/../vimfiles/plugin/cscope_maps.vim
+source $VIMRUNTIME/../vimfiles/plugin/cscope_maps.vim
 "source $VIMRUNTIME/../vimfiles/ftplugin/java_vis.vim
 "source $VIMRUNTIME/../vimfiles/ftplugin/cs_vis.vim
 "source $VIMRUNTIME/../vimfiles/ftplugin/html_vis.vim
 "source $VIMRUNTIME/../vimfiles/ftplugin/xml_vis.vim
-"source $VIMRUNTIME/../vimfiles/plugin/EasyGrep.vim
-"source $VIMRUNTIME/../vimfiles/plugin/indentLine.vim
-"source $VIMRUNTIME/../vimfiles/plugin/go.vim
+source $VIMRUNTIME/../vimfiles/plugin/EasyGrep.vim
+source $VIMRUNTIME/../vimfiles/plugin/indentLine.vim
+source $VIMRUNTIME/../vimfiles/plugin/go.vim
 
 behave mswin
 
@@ -32,9 +33,9 @@ behave mswin
 "----일본어 사용---
 "set enc=japan
 set enc=sjis
-"set guifont=Meiryo\ UI:h11
-"set guifont=MS\ Mincho:h11
-set guifont=MS\ Gothic:h11
+"set guifont=Meiryo\ UI:h11:b
+"set guifont=MS\ Mincho:h11:b
+set guifont=MS\ Gothic:h11:b
 
 "-----GUI Encoding Etc--------------
 "set fencs=ucs-bom,utf-8,cp949,latin1
