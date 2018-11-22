@@ -13,9 +13,6 @@ source $VIMRUNTIME/../vimfiles/plugin/indentLine.vim
 source $VIMRUNTIME/../vimfiles/plugin/go.vim
 
 behave mswin
-
-
-
 "=======GUI============================================
 "---한글 상용-------
 "set enc=utf-8
@@ -30,19 +27,21 @@ behave mswin
 "let $LANG='ko_KR.UTF-8'
 "set tenc=korea
 "set guifont=굴림체:h11:cHANGEUL
+"set guifontwide=MS\ Gothic:h11:b
 "----일본어 사용---
 "set enc=japan
 set enc=sjis
 "set guifont=Meiryo\ UI:h11:b
 "set guifont=MS\ Mincho:h11:b
-set guifont=MS\ Gothic:h11:b
-
+"set guifont=MS\ Gothic:h11:b
+set guifont=Consolas:h11
 "-----GUI Encoding Etc--------------
 "set fencs=ucs-bom,utf-8,cp949,latin1
 "set guifont=Consolas:h11
 " 현재의 encoding 상태표시
+"--------------status line---------------- 
 set laststatus=2 "항상 상태바가 나오도록 설정한다.
-set statusline=%<%f\|%m%r%h%y\ [%Y/%{&ff}/%{\(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}]%=[%04l(%p%%\|%P),%04v\|\%03.3b,\%02.2B]
+"set statusline=%<%f\|%m%r%h%y\ [%Y/%{&ff}/%{\(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}]%=[%04l(%p%%\|%P),%04v\|\%03.3b,\%02.2B]
 
 
 "====GUI 이면, 시작시 크기 설정========================
@@ -50,6 +49,12 @@ if has("gui_running")
     set lines=89
     set co=114
 endif
+"GUI 설정 
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L  "remove left-hand scroll bar
+
 "colorscheme zellner"컬러스킴을 변경
 "colorscheme pyte_noitalic
 "colorscheme jellybeans
@@ -136,11 +141,6 @@ set nobackup
 set noundofile
 " 편집하고 있는 라인 표시하기 
 set cursorline 
-"GUI 설정 
-set guioptions-=m  "remove menu bar
-set guioptions-=T  "remove toolbar
-set guioptions-=r  "remove right-hand scroll bar
-set guioptions-=L  "remove left-hand scroll bar
 " To Disable Logging HTML & Javascript autoindent
 let g:js_indent_log = 0 
 "-----------Doxygen -------------------------------
@@ -157,3 +157,11 @@ let g:DoxygenToolkit_briefTag_structName = "yes"
 let g:DoxygenToolkit_briefTag_enumName = "yes"
 let g:DoxygenToolkit_briefTag_namespaceName = "yes"
 "---------------------------------------------------
+"======NERDTREE===============================================
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+"======netrw===============================================
+let g:netrw_liststyle = 3
+
+
