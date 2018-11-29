@@ -1,3 +1,31 @@
+"=======GUI============================================
+"---한글 상용-------
+set enc=utf-8
+set fenc=utf-8
+set fencs=ucs-bom,utf-8,cp949,sjis,latin1
+set nobomb
+set langmenu=en_US.UTF-8 
+
+"let $LANG='UTF-8'
+"한글 사용
+"set encoding=utf-8
+"let $LANG='ko_KR.UTF-8'
+"set tenc=korea
+"set guifont=굴림체:h11:cHANGEUL
+"set guifontwide=MS\ Gothic:h11:b
+"----일본어 사용---
+"set enc=japan
+"set enc=sjis
+"set guifont=Meiryo\ UI:h11:b
+"set guifont=MS\ Mincho:h11:b
+"set guifont=MS\ Gothic:h11:b
+set guifont=Consolas:h11
+"set guifont=Arimo:h11
+set guifontwide=MS\ Mincho:h11:b
+"-----GUI Encoding Etc--------------
+"set fencs=ucs-bom,utf-8,cp949,latin1
+"set guifont=Consolas:h11
+" 현재의 encoding 상태표시
 
 "=========================================================================
 source $VIMRUNTIME/vimrc_example.vim
@@ -13,33 +41,6 @@ source $VIMRUNTIME/../vimfiles/plugin/indentLine.vim
 source $VIMRUNTIME/../vimfiles/plugin/go.vim
 
 behave mswin
-"=======GUI============================================
-"---한글 상용-------
-"set enc=utf-8
-"set fenc=utf-8
-"set fencs=ucs-bom,utf-8,cp949,latin1
-"set nobomb
-"set langmenu=en_US.UTF-8 
-
-"let $LANG='UTF-8'
-"한글 사용
-"set encoding=utf-8
-"let $LANG='ko_KR.UTF-8'
-"set tenc=korea
-"set guifont=굴림체:h11:cHANGEUL
-"set guifontwide=MS\ Gothic:h11:b
-"----일본어 사용---
-"set enc=japan
-set enc=sjis
-"set guifont=Meiryo\ UI:h11:b
-"set guifont=MS\ Mincho:h11:b
-"set guifont=MS\ Gothic:h11:b
-set guifont=Consolas:h11
-"set guifont=Meiryo:h11
-"-----GUI Encoding Etc--------------
-"set fencs=ucs-bom,utf-8,cp949,latin1
-"set guifont=Consolas:h11
-" 현재의 encoding 상태표시
 
 "--------------status line---------------- 
 "set laststatus=2 "항상 상태바가 나오도록 설정한다.
@@ -79,22 +80,22 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-let g:airline_left_sep = '걼 '
-let g:airline_right_sep = ' 걼'
-let g:airline_left_alt_sep = '걼 '
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.crypt = '걳'
-let g:airline_symbols.linenr = 'Line'
-let g:airline_symbols.maxlinenr = ' Column'
-let g:airline_symbols.branch = 'Branch:'
-let g:airline_symbols.paste = 'P'
-let g:airline_symbols.spell = 'S'
-let g:airline_symbols.notexists = 'NOTEX'
-let g:airline_symbols.whitespace = '='
-let g:airline_symbols.ellipsis = '...'
-let g:airline_symbols.space = ' '
-let g:airline_symbols.modified = '*'
-let g:airline_symbols.readonly = 'ReadOnly'
+"let g:airline_left_sep = '걼 '
+"let g:airline_right_sep = ' 걼'
+"let g:airline_left_alt_sep = '걼 '
+"let g:airline_right_alt_sep = ''
+"let g:airline_symbols.crypt = '걳'
+"let g:airline_symbols.linenr = 'Line'
+"let g:airline_symbols.maxlinenr = ' Column'
+"let g:airline_symbols.branch = 'Branch:'
+"let g:airline_symbols.paste = 'P'
+"let g:airline_symbols.spell = 'S'
+"let g:airline_symbols.notexists = 'NOTEX'
+"let g:airline_symbols.whitespace = '='
+"let g:airline_symbols.ellipsis = '...'
+"let g:airline_symbols.space = ' '
+"let g:airline_symbols.modified = '*'
+"let g:airline_symbols.readonly = 'ReadOnly'
 
 "=Key Map=============================================
 map gr :grep <cword> *.c *.cpp *.h *.cs<CR>
