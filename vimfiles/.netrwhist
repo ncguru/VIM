@@ -1,11 +1,3 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='D:/DI_ACCY/SVN_WORK/XLR_BOX_sys_k/src/trunk/AV-1016_LL'
-let g:netrw_dirhist_2='D:/DI_ACCY/SVN_WORK/XLR_BOX_sys_k/src/trunk/AV-1016_LL/APL'
-let g:netrw_dirhist_3='D:/DI_ACCY/SVN_WORK/XLR_BOX_sys_k/src/trunk/AV-1016_LL/APL/Src'
-let g:netrw_dirhist_4='D:/DI_ACCY/SVN_WORK/XLR_BOX_sys_k/src/trunk/AV-1016_LL/APL/User'
-let g:netrw_dirhist_5='D:/DI_ACCY/SVN_WORK/XLR_BOX_sys_k/src/trunk/AV-1016_LL/APL/User/Audio'
-let g:netrw_dirhist_6='D:\DI_ACCY\SVN_WORK\XLR_BOX_sys_k\src\trunk\AV-1016_LL\APL\User\Audio'
-let g:netrw_dirhist_7='D:/DI_ACCY/SVN_WORK/XLR_BOX_sys_k/src/trunk/AV-1016_LL/APL/User'
-let g:netrw_dirhist_8='D:/DI_ACCY/SVN_WORK/XLR_BOX_sys_k/src/trunk/AV-1016_LL/APL/User/Peripheral'
-let g:netrw_dirhist_9='D:\DI_ACCY\SVN_WORK\XLR_BOX_sys_k\src\trunk\AV-1016_LL\APL\User\Peripheral'
+let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_1='C:/Users'

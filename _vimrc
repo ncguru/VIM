@@ -35,12 +35,14 @@ set enc=sjis
 "set guifont=MS\ Mincho:h11:b
 "set guifont=MS\ Gothic:h11:b
 set guifont=Consolas:h11
+"set guifont=Meiryo:h11
 "-----GUI Encoding Etc--------------
 "set fencs=ucs-bom,utf-8,cp949,latin1
 "set guifont=Consolas:h11
 " 현재의 encoding 상태표시
+
 "--------------status line---------------- 
-set laststatus=2 "항상 상태바가 나오도록 설정한다.
+"set laststatus=2 "항상 상태바가 나오도록 설정한다.
 "set statusline=%<%f\|%m%r%h%y\ [%Y/%{&ff}/%{\(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}]%=[%04l(%p%%\|%P),%04v\|\%03.3b,\%02.2B]
 
 
@@ -62,7 +64,37 @@ set guioptions-=L  "remove left-hand scroll bar
 colorscheme gruvbox 
 set background=dark "gruvbox colormode"
 let g:gruvbox_italicize_comments=0
-" for tetris game
+
+"------airline -------------------------------------------
+let g:airline_theme='solarized'
+set laststatus=2
+
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#whitespace#mixed_indent_algo = 1
+let g:airline#extensions#branch#enabled = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+let g:airline_left_sep = '걼 '
+let g:airline_right_sep = ' 걼'
+let g:airline_left_alt_sep = '걼 '
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.crypt = '걳'
+let g:airline_symbols.linenr = 'Line'
+let g:airline_symbols.maxlinenr = ' Column'
+let g:airline_symbols.branch = 'Branch:'
+let g:airline_symbols.paste = 'P'
+let g:airline_symbols.spell = 'S'
+let g:airline_symbols.notexists = 'NOTEX'
+let g:airline_symbols.whitespace = '='
+let g:airline_symbols.ellipsis = '...'
+let g:airline_symbols.space = ' '
+let g:airline_symbols.modified = '*'
+let g:airline_symbols.readonly = 'ReadOnly'
 
 "=Key Map=============================================
 map gr :grep <cword> *.c *.cpp *.h *.cs<CR>
@@ -85,27 +117,6 @@ map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q ./ <CR><CR>
 " add current directory's generated tags file to available tags
 set tags+=./tags
 
-
-
-
-"============== buffer Setting ===========
-"map 1 :b!1<CR>
-"map 2 :b!2<CR>
-map 3 :b!3<CR>
-map 4 :b!4<CR>
-map 5 :b!5<CR>
-map 6 :b!6<CR>
-map 7 :b!7<CR>
-map 8 :b!8<CR>
-map 9 :b!9<CR>
-map 0 :b!0<CR>
-" - : close, + : buffer all 
-map - :bw<CR>
-map + :al<CR>
-
-"===================================================
-"=============set===================================
-"===================================================
 
 "===== JSON ========================================
 com! FormatJSON %!python -m json.tool 
@@ -163,5 +174,4 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 "======netrw===============================================
 let g:netrw_liststyle = 3
-
 
