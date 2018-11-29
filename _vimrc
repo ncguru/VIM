@@ -2,7 +2,7 @@
 "---한글 상용-------
 set enc=utf-8
 set fenc=utf-8
-set fencs=ucs-bom,utf-8,cp949,sjis,latin1
+set fencs=sjis,cp949,utf-8,ucs-bom,latin1
 set nobomb
 set langmenu=en_US.UTF-8 
 
@@ -21,7 +21,7 @@ set langmenu=en_US.UTF-8
 "set guifont=MS\ Gothic:h11:b
 set guifont=Consolas:h11
 "set guifont=Arimo:h11
-set guifontwide=MS\ Mincho:h11:b
+set guifontwide=MS\ Mincho:h11
 "-----GUI Encoding Etc--------------
 "set fencs=ucs-bom,utf-8,cp949,latin1
 "set guifont=Consolas:h11
