@@ -1,5 +1,5 @@
 "=======GUI============================================
-"---ÇÑ±Û »ó¿ë-------
+"---í•œê¸€ ìƒìš©-------
 set enc=utf-8
 set fenc=utf-8
 set fencs=sjis,cp949,utf-8,ucs-bom,latin1
@@ -7,13 +7,13 @@ set nobomb
 set langmenu=en_US.UTF-8 
 
 "let $LANG='UTF-8'
-"ÇÑ±Û »ç¿ë
+"í•œê¸€ ì‚¬ìš©
 "set encoding=utf-8
 "let $LANG='ko_KR.UTF-8'
 "set tenc=korea
-"set guifont=±¼¸²Ã¼:h11:cHANGEUL
+"set guifont=êµ´ë¦¼ì²´:h11:cHANGEUL
 "set guifontwide=MS\ Gothic:h11:b
-"----ÀÏº»¾î »ç¿ë---
+"----ì¼ë³¸ì–´ ì‚¬ìš©---
 "set enc=japan
 "set enc=sjis
 "set guifont=Meiryo\ UI:h11:b
@@ -25,7 +25,7 @@ set guifontwide=MS\ Mincho:h11
 "-----GUI Encoding Etc--------------
 "set fencs=ucs-bom,utf-8,cp949,latin1
 "set guifont=Consolas:h11
-" ÇöÀçÀÇ encoding »óÅÂÇ¥½Ã
+" í˜„ì¬ì˜ encoding ìƒíƒœí‘œì‹œ
 
 "=========================================================================
 source $VIMRUNTIME/vimrc_example.vim
@@ -43,31 +43,61 @@ source $VIMRUNTIME/../vimfiles/plugin/go.vim
 behave mswin
 
 "--------------status line---------------- 
-"set laststatus=2 "Ç×»ó »óÅÂ¹Ù°¡ ³ª¿Àµµ·Ï ¼³Á¤ÇÑ´Ù.
+"set laststatus=2 "í•­ìƒ ìƒíƒœë°”ê°€ ë‚˜ì˜¤ë„ë¡ ì„¤ì •í•œë‹¤.
 "set statusline=%<%f\|%m%r%h%y\ [%Y/%{&ff}/%{\(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}]%=[%04l(%p%%\|%P),%04v\|\%03.3b,\%02.2B]
 
 
-"====GUI ÀÌ¸é, ½ÃÀÛ½Ã Å©±â ¼³Á¤========================
+"====GUI ì´ë©´, ì‹œì‘ì‹œ í¬ê¸° ì„¤ì •========================
 if has("gui_running")
     set lines=89
     set co=114
 endif
-"GUI ¼³Á¤ 
+"GUI ì„¤ì • 
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
 
-"colorscheme zellner"ÄÃ·¯½ºÅ´À» º¯°æ
+"colorscheme zellner"ì»¬ëŸ¬ìŠ¤í‚´ì„ ë³€ê²½
 "colorscheme pyte_noitalic
 "colorscheme jellybeans
 "colorscheme koehler
 colorscheme gruvbox 
 set background=dark "gruvbox colormode"
 let g:gruvbox_italicize_comments=0
+"setting-------------------------------------------------------
+set modifiable
+
+set nocompatible
+
+syntax on 
+set nu
+set cindent
+set autoindent
+set sw=4
+set ts=4
+set sts=4
+set smartindent
+set ignorecase
+set nobackup
+set notx
+"set list " Display Tab etc
+set noexpandtab
+"set expandtab
+set nowrap "ì¤„ Wrapë¥¼ í•˜ì§€ ì•ŠìŒ
+"í…í‘œì‹œ "
+"set list 
+" backup file ë§Œë“¤ì§€ ì•ŠëŠ”ë‹¤.
+set nobackup
+" un~ UndoíŒŒì¼ì„ ë§Œë“¤ì§€ ì•ŠëŠ”ë‹¤.
+set noundofile
+" í¸ì§‘í•˜ê³  ìˆëŠ” ë¼ì¸ í‘œì‹œí•˜ê¸° 
+"set cursorline 
+" To Disable Logging HTML & Javascript autoindent
+let g:js_indent_log = 0 
 
 "------airline -------------------------------------------
-let g:airline_theme='solarized'
+"let g:airline_theme='solarized'
 set laststatus=2
 
 let g:airline_powerline_fonts = 1
@@ -80,11 +110,11 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-"let g:airline_left_sep = 'Ÿ '
-"let g:airline_right_sep = ' Ÿ'
-"let g:airline_left_alt_sep = 'Ÿ '
+"let g:airline_left_sep = ' '
+"let g:airline_right_sep = ' ê±¼'
+"let g:airline_left_alt_sep = 'ê±¼ '
 "let g:airline_right_alt_sep = ''
-"let g:airline_symbols.crypt = 'š'
+"let g:airline_symbols.crypt = 'ê±³'
 "let g:airline_symbols.linenr = 'Line'
 "let g:airline_symbols.maxlinenr = ' Column'
 "let g:airline_symbols.branch = 'Branch:'
@@ -96,6 +126,12 @@ endif
 "let g:airline_symbols.space = ' '
 "let g:airline_symbols.modified = '*'
 "let g:airline_symbols.readonly = 'ReadOnly'
+
+"======Beep Off======================================
+set noerrorbells visualbell t_vb=
+if has('autocmd')
+  autocmd GUIEnter * set visualbell t_vb=
+endif
 
 "=Key Map=============================================
 map gr :grep <cword> *.c *.cpp *.h *.cs<CR>
@@ -125,36 +161,6 @@ com! FormatJSON %!python -m json.tool
 "===== Golong ===========================================
 autocmd FileType go         setl ts=4 sw=4 sts=4 noet
 filetype plugin indent on
-"-------------------------------------------------------
-set modifiable
-
-set nocompatible
-
-syntax on 
-set nu
-set cindent
-set autoindent
-set sw=4
-set ts=4
-set sts=4
-set smartindent
-set ignorecase
-set nobackup
-set notx
-"set list " Display Tab etc
-set noexpandtab
-"set expandtab
-set nowrap "ÁÙ Wrap¸¦ ÇÏÁö ¾ÊÀ½
-"ÅÜÇ¥½Ã "
-"set list 
-" backup file ¸¸µéÁö ¾Ê´Â´Ù.
-set nobackup
-" un~ UndoÆÄÀÏÀ» ¸¸µéÁö ¾Ê´Â´Ù.
-set noundofile
-" ÆíÁıÇÏ°í ÀÖ´Â ¶óÀÎ Ç¥½ÃÇÏ±â 
-set cursorline 
-" To Disable Logging HTML & Javascript autoindent
-let g:js_indent_log = 0 
 "-----------Doxygen -------------------------------
 let g:DoxygenToolkit_briefTag_pre = "@fn "
 let g:DoxygenToolkit_briefTag_post = "\n* @brief "
