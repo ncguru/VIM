@@ -19,7 +19,10 @@ set langmenu=en_US.UTF-8
 "set guifont=Meiryo\ UI:h11:b
 "set guifont=MS\ Mincho:h11:b
 "set guifont=MS\ Gothic:h11:b
-set guifont=Consolas:h11
+"set guifont=Consolas:h11
+"set guifont=DejaVu_Sans_Mono_for_Powerline:h11
+set guifont=Consolas_NF:h11
+"set guifont=D2Coding_ligature:h11
 "set guifont=Arimo:h11
 set guifontwide=MS\ Mincho:h11
 "-----GUI Encoding Etc--------------
@@ -98,6 +101,11 @@ let g:js_indent_log = 0
 
 "------airline -------------------------------------------
 "let g:airline_theme='solarized'
+"let g:airline_solarized_bg='light'
+"let g:airline_theme='powerlineish'
+let g:airline_theme='dark'
+"let g:airline_theme='jellybeans'
+"let g:airline_theme='light'
 set laststatus=2
 
 let g:airline_powerline_fonts = 1
@@ -121,7 +129,7 @@ endif
 "let g:airline_symbols.paste = 'P'
 "let g:airline_symbols.spell = 'S'
 "let g:airline_symbols.notexists = 'NOTEX'
-"let g:airline_symbols.whitespace = '='
+"let g:airline_symbols.whitespace = '■'
 "let g:airline_symbols.ellipsis = '...'
 "let g:airline_symbols.space = ' '
 "let g:airline_symbols.modified = '*'
