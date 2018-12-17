@@ -81,7 +81,8 @@ set sw=4
 set ts=4
 set sts=4
 set smartindent
-set ignorecase
+"대소 문자 구분
+"set ignorecase
 set nobackup
 set notx
 "set list " Display Tab etc
@@ -95,7 +96,9 @@ set nobackup
 " un~ Undo파일을 만들지 않는다.
 set noundofile
 " 편집하고 있는 라인 표시하기 
-"set cursorline 
+"set cursorline
+" Oldfile 표시 수자 지정 
+set viminfo='30
 " To Disable Logging HTML & Javascript autoindent
 let g:js_indent_log = 0 
 
@@ -184,9 +187,9 @@ let g:DoxygenToolkit_briefTag_enumName = "yes"
 let g:DoxygenToolkit_briefTag_namespaceName = "yes"
 "---------------------------------------------------
 "======NERDTREE===============================================
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 "======netrw===============================================
 let g:netrw_liststyle = 3
-
+"============================================================================
