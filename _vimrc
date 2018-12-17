@@ -82,7 +82,7 @@ set ts=4
 set sts=4
 set smartindent
 "대소 문자 구분
-"set ignorecase
+set ignorecase
 set nobackup
 set notx
 "set list " Display Tab etc
