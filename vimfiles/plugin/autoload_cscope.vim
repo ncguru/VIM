@@ -157,6 +157,10 @@ function s:Cycle_csdb()
 "    echo "Found cscope.out at: " . newcsdbpath
 "    echo "Windowdir: " . s:windowdir()
     if newcsdbpath != "Nothing"
+		"By Kim Gisaeng------------------------------------------------------------------
+		"chanage currutn Directory for cscope.out"
+		exe "cd" newcsdbpath 
+		"By Kim Gisaeng------------------------------------------------------------------
       let b:csdbpath = newcsdbpath
       if !cscope_connection(3, "out", b:csdbpath)
         let save_csvb = &csverb

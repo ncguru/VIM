@@ -1,4 +1,3 @@
-"=======GUI============================================
 "---한글 상용-------
 set enc=utf-8
 set fenc=utf-8
@@ -6,6 +5,9 @@ set fencs=sjis,cp949,utf-8,ucs-bom,latin1
 set nobomb
 set langmenu=en_US.UTF-8 
 
+
+"=======GUI============================================
+if has("win32")  
 "let $LANG='UTF-8'
 "한글 사용
 "set encoding=utf-8
@@ -30,20 +32,6 @@ set guifontwide=MS\ Mincho:h11
 "set guifont=Consolas:h11
 " 현재의 encoding 상태표시
 
-"=========================================================================
-source $VIMRUNTIME/vimrc_example.vim
-source $VIMRUNTIME/mswin.vim
-
-source $VIMRUNTIME/../vimfiles/plugin/cscope_maps.vim
-"source $VIMRUNTIME/../vimfiles/ftplugin/java_vis.vim
-"source $VIMRUNTIME/../vimfiles/ftplugin/cs_vis.vim
-"source $VIMRUNTIME/../vimfiles/ftplugin/html_vis.vim
-"source $VIMRUNTIME/../vimfiles/ftplugin/xml_vis.vim
-source $VIMRUNTIME/../vimfiles/plugin/EasyGrep.vim
-source $VIMRUNTIME/../vimfiles/plugin/indentLine.vim
-source $VIMRUNTIME/../vimfiles/plugin/go.vim
-
-behave mswin
 
 "--------------status line---------------- 
 "set laststatus=2 "항상 상태바가 나오도록 설정한다.
@@ -61,18 +49,29 @@ set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
 
-"colorscheme zellner"컬러스킴을 변경
-"colorscheme pyte_noitalic
-"colorscheme jellybeans
-"colorscheme koehler
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+endif " if Win32 
+"=========================================================================
+
+source $VIMRUNTIME/../vimfiles/plugin/cscope_maps.vim
+"source $VIMRUNTIME/../vimfiles/ftplugin/java_vis.vim
+"source $VIMRUNTIME/../vimfiles/ftplugin/cs_vis.vim
+"source $VIMRUNTIME/../vimfiles/ftplugin/html_vis.vim
+"source $VIMRUNTIME/../vimfiles/ftplugin/xml_vis.vim
+source $VIMRUNTIME/../vimfiles/plugin/EasyGrep.vim
+source $VIMRUNTIME/../vimfiles/plugin/indentLine.vim
+source $VIMRUNTIME/../vimfiles/plugin/go.vim
+
+" Colorsheme---------------------------------------------------
 colorscheme gruvbox 
 set background=dark "gruvbox colormode"
 let g:gruvbox_italicize_comments=0
 "setting-------------------------------------------------------
 set modifiable
-
 set nocompatible
-
 syntax on 
 set nu
 set cindent
@@ -154,19 +153,26 @@ map <F6> :tabn<CR>
 map <F7> :tabclose<CR>
 map <F8> :cs add cscope.out<CR>
 map <F9> :!ctags -R . <CR>
-map <F10> :!dir/B/S *.c *.cpp *.h *.cs >cscope.files <CR>
-map <F11> :!cscope -b -q -k <CR>
+
+if has("win32")  
+map <F11> :!dir/B/S *.c *.cpp *.h *.cs >cscope.files <CR>
+  \:!cscope -b -i cscope.files -f cscope.out<CR>
+  \:cs kill -1<CR>:cs add cscope.out<CR>
+else "linux 
+nmap <F11> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
+  \:!cscope -b -i cscope.files -f cscope.out<CR>
+  \:cs kill -1<CR>:cs add cscope.out<CR>
+endif
 " -- ctags --
 " map F12 to generate ctags for current folder:
 map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q ./ <CR><CR>
 " add current directory's generated tags file to available tags
 set tags+=./tags
 
-
-"===== JSON ========================================
+" JSON ----------------------------------------------------------- 
 com! FormatJSON %!python -m json.tool 
 
-"===== Golong ===========================================
+" Golong ---------------------------------------------------------
 autocmd FileType go         setl ts=4 sw=4 sts=4 noet
 filetype plugin indent on
 "-----------Doxygen -------------------------------
@@ -182,11 +188,11 @@ let g:DoxygenToolkit_briefTag_className = "yes"
 let g:DoxygenToolkit_briefTag_structName = "yes"
 let g:DoxygenToolkit_briefTag_enumName = "yes"
 let g:DoxygenToolkit_briefTag_namespaceName = "yes"
-"---------------------------------------------------
-"======NERDTREE===============================================
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-"======netrw===============================================
+"NERTREE---------------------------------------------------
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"netrw-----------------------------------------------------
 let g:netrw_liststyle = 3
+
+"End===========================================================================================================
 
