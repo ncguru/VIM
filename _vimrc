@@ -158,13 +158,15 @@ map <F8> :cs add cscope.out<CR>
 map <F9> :!ctags -R . <CR>
 
 if has("win32")  
-map <F11> :!dir/B/S *.c *.cpp *.h *.cs >cscope.files <CR>
+map <F11> :cs kill -1<CR>
+  \:!dir/B/S *.c *.cpp *.h *.cs >cscope.files <CR>
   \:!cscope -b -i cscope.files -f cscope.out<CR>
-  \:cs kill -1<CR>:cs add cscope.out<CR>
+  \:cs add cscope.out<CR>
 else "linux 
-nmap <F11> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
+nmap <F11> :cs kill -1<CR>
+  \:!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
   \:!cscope -b -i cscope.files -f cscope.out<CR>
-  \:cs kill -1<CR>:cs add cscope.out<CR>
+  \:cs add cscope.out<CR>
 endif
 " -- ctags --
 " map F12 to generate ctags for current folder:
