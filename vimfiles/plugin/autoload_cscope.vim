@@ -164,9 +164,12 @@ function s:Cycle_csdb()
       let b:csdbpath = newcsdbpath
       if !cscope_connection(3, "out", b:csdbpath)
         let save_csvb = &csverb
-        set nocsverb
-        exe "cs add " . b:csdbpath . "/cscope.out " . b:csdbpath
-        set csverb
+		set nocsverb
+		"By Kim Gisaeng---Add cs kill---------------------------------------------------------------
+		exe "cs kill -1"
+		"By Kim Gisaeng------------------------------------------------------------------
+		exe "cs add " . b:csdbpath . "/cscope.out " . b:csdbpath
+		set csverb
         let &csverb = save_csvb
       endif
       "
