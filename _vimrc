@@ -57,6 +57,7 @@ endif " if Win32
 "=========================================================================
 
 source $VIMRUNTIME/../vimfiles/plugin/cscope_maps.vim
+source $VIMRUNTIME/../vimfiles/plugin/autoload_cscope.vim
 "source $VIMRUNTIME/../vimfiles/ftplugin/java_vis.vim
 "source $VIMRUNTIME/../vimfiles/ftplugin/cs_vis.vim
 "source $VIMRUNTIME/../vimfiles/ftplugin/html_vis.vim
@@ -154,9 +155,11 @@ map <F4> :Tlist<cr><C-W><C-W>
 map <F5> :tabnew<CR>
 map <F6> :tabn<CR>
 map <F7> :tabclose<CR>
-map <F8> :cs add cscope.out<CR>
+map <F8> :cs kill -1<CR> 
+			\:cs add cscope.out<CR>
+			\:e<CR>
 map <F9> :!ctags -R . <CR>
-
+" ---- CSCOPE ----
 if has("win32")  
 map <F11> :cs kill -1<CR>
   \:!dir/B/S *.c *.cpp *.h *.cs >cscope.files <CR>
@@ -168,6 +171,7 @@ nmap <F11> :cs kill -1<CR>
   \:!cscope -b -i cscope.files -f cscope.out<CR>
   \:cs add cscope.out<CR>
 endif
+
 " -- ctags --
 " map F12 to generate ctags for current folder:
 map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q ./ <CR><CR>
