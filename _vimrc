@@ -161,15 +161,17 @@ map <F8> :cs kill -1<CR>
 map <F9> :!ctags -R . <CR>
 " ---- CSCOPE ----
 if has("win32")  
-map <F11> :cs kill -1<CR>
-  \:!dir/B/S *.c *.cpp *.h *.cs >cscope.files <CR>
-  \:!cscope -b -i cscope.files -f cscope.out<CR>
-  \:cs add cscope.out<CR>
+	map <F11> :cs kill -1<CR>
+				\:!dir/B/S *.c *.cpp *.h *.cs >cscope.files <CR>
+				\:!cscope -b -i cscope.files -f cscope.out<CR>
+				\:cs add cscope.out<CR>
+				\:e<CR>
 else "linux 
-nmap <F11> :cs kill -1<CR>
-  \:!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
-  \:!cscope -b -i cscope.files -f cscope.out<CR>
-  \:cs add cscope.out<CR>
+	nmap <F11> :cs kill -1<CR>
+				\:!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
+				\:!cscope -b -i cscope.files -f cscope.out<CR>
+				\:cs add cscope.out<CR>
+				\:e<CR>
 endif
 
 " -- ctags --
@@ -203,5 +205,13 @@ let g:DoxygenToolkit_briefTag_namespaceName = "yes"
 "netrw-----------------------------------------------------
 let g:netrw_liststyle = 3
 
+"==== IME 입력 모드에서 명령모드 변경시 IME 영문으로 자동 변경============
+"コマンドラインの高さを2に
+set cmdheight=2
+
+"<C-^>でIM制御が行える場合の設定
+let IM_CtrlMode = 4
+"ctrl+jで日本語入力固定モードをOnOff
+inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
 "End===========================================================================================================
 
