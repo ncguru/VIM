@@ -179,6 +179,7 @@ endif
 map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q ./ <CR><CR>
 " add current directory's generated tags file to available tags
 set tags+=./tags
+let Tlist_WinWidth = 50
 
 " JSON ----------------------------------------------------------- 
 com! FormatJSON %!python -m json.tool 
