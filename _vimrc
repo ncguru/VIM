@@ -32,8 +32,7 @@ set guifontwide=MS\ Mincho:h11
 "set guifont=Consolas:h11
 " 현재의 encoding 상태표시
 
-
-"--------------status line---------------- 
+"--------------status line------------------------------ 
 "set laststatus=2 "항상 상태바가 나오도록 설정한다.
 "set statusline=%<%f\|%m%r%h%y\ [%Y/%{&ff}/%{\(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}]%=[%04l(%p%%\|%P),%04v\|\%03.3b,\%02.2B]
 
@@ -65,6 +64,13 @@ source $VIMRUNTIME/../vimfiles/plugin/autoload_cscope.vim
 source $VIMRUNTIME/../vimfiles/plugin/EasyGrep.vim
 source $VIMRUNTIME/../vimfiles/plugin/indentLine.vim
 source $VIMRUNTIME/../vimfiles/plugin/go.vim
+
+"-------------- QuicFix Window Height -------------------
+au FileType qf call AdjustWindowHeight(3, 40)
+function! AdjustWindowHeight(minheight, maxheight)
+  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+endfunction
+
 
 " Colorsheme---------------------------------------------------
 colorscheme gruvbox 
@@ -101,7 +107,8 @@ set noundofile
 set viminfo='30
 " To Disable Logging HTML & Javascript autoindent
 let g:js_indent_log = 0 
-
+"Indentline For Tab
+set list lcs=tab:\|\ 
 "------airline -------------------------------------------
 "let g:airline_theme='solarized'
 "let g:airline_solarized_bg='light'
@@ -145,6 +152,10 @@ if has('autocmd')
 endif
 
 "=Key Map=============================================
+" Hilight 표시 후에 Couser이동 하지 않게 하기 
+nnoremap * *N
+nnoremap gd gd<cr><C-o>
+
 map gr :grep <cword> *.c *.cpp *.h *.cs<CR>
 "----- Srcexpl Setting ----
 map <F2> :SrcExplToggle<CR>
@@ -177,6 +188,8 @@ endif
 " -- ctags --
 " map F12 to generate ctags for current folder:
 map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q ./ <CR><CR>
+
+"-------------- tags----------------------------------------------
 " add current directory's generated tags file to available tags
 set tags+=./tags
 let Tlist_WinWidth = 50
@@ -208,7 +221,7 @@ let g:netrw_liststyle = 3
 
 "==== IME 입력 모드에서 명령모드 변경시 IME 영문으로 자동 변경============
 "コマンドラインの高さを2に
-set cmdheight=2
+set cmdheight=1
 
 "<C-^>でIM制御が行える場合の設定
 let IM_CtrlMode = 4
