@@ -166,7 +166,8 @@ function s:Cycle_csdb()
         let save_csvb = &csverb
 		set nocsverb
 		"By Kim Gisaeng---Add cs kill---------------------------------------------------------------
-		"exe "cs kill -1"
+		exe "cs kill -1" 
+		exe "cs add cscope.out"
 		"By Kim Gisaeng------------------------------------------------------------------
 		"exe "cs add " . b:csdbpath . "/cscope.out " . b:csdbpath
 		set csverb
