@@ -76,6 +76,8 @@ endfunction
 colorscheme gruvbox 
 set background=dark "gruvbox colormode"
 let g:gruvbox_italicize_comments=0
+let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_contrast_light='hard'
 "setting-------------------------------------------------------
 set modifiable
 set nocompatible
@@ -109,10 +111,14 @@ set viminfo='30
 let g:js_indent_log = 0 
 "Indentline For Tab
 set list lcs=tab:\|\ 
+" Folding C style
+set foldmethod=syntax
+set nofoldenable " defaut No folding "
 "------airline -------------------------------------------
 "let g:airline_theme='solarized'
 "let g:airline_solarized_bg='light'
 "let g:airline_theme='powerlineish'
+"let g:airline_theme='gruvbox'
 let g:airline_theme='dark'
 "let g:airline_theme='jellybeans'
 "let g:airline_theme='light'
