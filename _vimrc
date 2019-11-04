@@ -111,6 +111,8 @@ set viminfo='30
 let g:js_indent_log = 0 
 "Indentline For Tab
 set list lcs=tab:\|\ 
+"Window Board charator
+set fillchars+=vert:┃ 
 " Folding C style
 set foldmethod=syntax
 set nofoldenable " defaut No folding "
@@ -119,9 +121,10 @@ set nofoldenable " defaut No folding "
 "let g:airline_solarized_bg='light'
 "let g:airline_theme='powerlineish'
 "let g:airline_theme='gruvbox'
-let g:airline_theme='dark'
+"let g:airline_theme='dark'
 "let g:airline_theme='jellybeans'
 "let g:airline_theme='light'
+let g:airline_theme='molokai'
 set laststatus=2
 
 let g:airline_powerline_fonts = 1
@@ -199,7 +202,6 @@ map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q ./ <CR><CR>
 " add current directory's generated tags file to available tags
 set tags+=./tags
 let Tlist_WinWidth = 50
-
 " JSON ----------------------------------------------------------- 
 com! FormatJSON %!python -m json.tool 
 
