@@ -76,8 +76,8 @@ endfunction
 colorscheme gruvbox 
 set background=dark "gruvbox colormode"
 let g:gruvbox_italicize_comments=0
-let g:gruvbox_contrast_dark='hard'
-let g:gruvbox_contrast_light='hard'
+let g:gruvbox_contrast_dark='medium'
+let g:gruvbox_contrast_light='medium'
 "setting-------------------------------------------------------
 set modifiable
 set nocompatible
@@ -222,8 +222,11 @@ let g:DoxygenToolkit_briefTag_structName = "yes"
 let g:DoxygenToolkit_briefTag_enumName = "yes"
 let g:DoxygenToolkit_briefTag_namespaceName = "yes"
 "NERTREE---------------------------------------------------
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+let g:NERDTreeDirArrowExpandable = '▸' " 접혀 있는 디렉터리
+let g:NERDTreeDirArrowCollapsible = '▾' " 펼쳐 있는 디렉터리
+
 "netrw-----------------------------------------------------
 let g:netrw_liststyle = 3
 
@@ -235,5 +238,8 @@ set cmdheight=1
 let IM_CtrlMode = 4
 "ctrl+jで日本語入力固定モードをOnOff
 inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
-"End===========================================================================================================
 
+"--------XAML file type
+"syntax---------------------------------------------------------------------------
+au BufRead,BufNewFile *.xaml setfiletype xml
+"End===========================================================================================================
