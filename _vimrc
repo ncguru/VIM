@@ -48,6 +48,9 @@ set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
 
+
+set rtp+=C:\Vim\vim82
+
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 behave mswin
@@ -106,7 +109,7 @@ set noundofile
 " 편집하고 있는 라인 표시하기 
 "set cursorline
 " Oldfile 표시 수자 지정 
-set viminfo='30
+set viminfo='300
 " To Disable Logging HTML & Javascript autoindent
 let g:js_indent_log = 0 
 "Indentline For Tab
@@ -222,11 +225,11 @@ let g:DoxygenToolkit_briefTag_structName = "yes"
 let g:DoxygenToolkit_briefTag_enumName = "yes"
 let g:DoxygenToolkit_briefTag_namespaceName = "yes"
 "NERTREE---------------------------------------------------
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-let g:NERDTreeDirArrowExpandable = '▸' " 접혀 있는 디렉터리
-let g:NERDTreeDirArrowCollapsible = '▾' " 펼쳐 있는 디렉터리
-
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"let g:NERDTreeDirArrowExpandable = '▸' " 접혀 있는 디렉터리
+"let g:NERDTreeDirArrowCollapsible = '▾' " 펼쳐 있는 디렉터리
+cd D:\UWP\4th_UWP_2CH\Source_Code\
 "netrw-----------------------------------------------------
 let g:netrw_liststyle = 3
 
@@ -242,4 +245,12 @@ inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
 "--------XAML file type
 "syntax---------------------------------------------------------------------------
 au BufRead,BufNewFile *.xaml setfiletype xml
+
+"==============================================================================================================
+" plug#begin 과 plug#end 사이에 사용하고 싶은 플러그인들을 선언해 줍니다.
+call plug#begin('~/.vim/plugged')
+    "Plug 'GitHub계정명/저장소명'   " 추가하고 싶은 플러그인의 GitHub 저장소 주소를 Plug 뒤에 적어줍니다.
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+call plug#end()
 "End===========================================================================================================
