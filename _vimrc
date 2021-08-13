@@ -50,6 +50,7 @@ set guioptions-=L  "remove left-hand scroll bar
 
 
 set rtp+=C:\Vim\vim82
+set rtp+=~/.vim/plugged
 
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
@@ -74,13 +75,31 @@ function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
-
 " Colorsheme---------------------------------------------------
-colorscheme gruvbox 
-set background=dark "gruvbox colormode"
-let g:gruvbox_italicize_comments=0
-let g:gruvbox_contrast_dark='medium'
-let g:gruvbox_contrast_light='medium'
+"colorscheme edge 
+
+" Colorsheme gruvbox---------------------------------------------------
+"colorscheme gruvbox 
+
+"set background=dark "gruvbox colormode"
+"let g:gruvbox_italicize_comments=0
+"let g:gruvbox_contrast_dark='medium'
+"let g:gruvbox_contrast_light='medium'
+
+" Colorsheme gruvbox-material--------------------------------------------------
+
+if has('termguicolors')
+	set termguicolors
+endif
+set background=dark
+let g:gruvbox_material_background = 'medium'
+let g:gruvbox_material_enable_italic = 1
+let g:gruvbox_material_disable_italic_comment = 1
+let g:gruvbox_material_current_word = 'bold'
+let g:gruvbox_material_enable_bold = 1 "To enable bold in function name just like the original gruvbox
+let g:gruvbox_material_diagnostic_virtual_text = 'colored'
+colorscheme gruvbox-material
+
 "setting-------------------------------------------------------
 set modifiable
 set nocompatible
@@ -98,7 +117,7 @@ set nobackup
 set notx
 "set list " Display Tab etc
 set noexpandtab
-"set expandtab
+"set expandtab " Tab을 Space로 사용한다 
 set nowrap "줄 Wrap를 하지 않음
 "텝표시 "
 "set list 
@@ -109,7 +128,8 @@ set noundofile
 " 편집하고 있는 라인 표시하기 
 "set cursorline
 " Oldfile 표시 수자 지정 
-set viminfo='300
+"set viminfo='50
+set history=100
 " To Disable Logging HTML & Javascript autoindent
 let g:js_indent_log = 0 
 "Indentline For Tab
@@ -129,7 +149,6 @@ set nofoldenable " defaut No folding "
 "let g:airline_theme='light'
 let g:airline_theme='molokai'
 set laststatus=2
-
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
@@ -170,10 +189,13 @@ nnoremap gd gd<cr><C-o>
 
 map gr :grep <cword> *.c *.cpp *.h *.cs<CR>
 "----- Srcexpl Setting ----
-map <F2> :SrcExplToggle<CR>
+
+map <F1> zM
+map <F2> zR
 
 "map <F2> v]}zf
-map <F3> zo
+"map <F3> zo
+map <F3> :cd %:p:h
 map <F4> :Tlist<cr><C-W><C-W>
 map <F5> :tabnew<CR>
 map <F6> :tabn<CR>
@@ -229,7 +251,6 @@ let g:DoxygenToolkit_briefTag_namespaceName = "yes"
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 "let g:NERDTreeDirArrowExpandable = '▸' " 접혀 있는 디렉터리
 "let g:NERDTreeDirArrowCollapsible = '▾' " 펼쳐 있는 디렉터리
-cd D:\UWP\4th_UWP_2CH\Source_Code\
 "netrw-----------------------------------------------------
 let g:netrw_liststyle = 3
 
@@ -252,5 +273,31 @@ call plug#begin('~/.vim/plugged')
     "Plug 'GitHub계정명/저장소명'   " 추가하고 싶은 플러그인의 GitHub 저장소 주소를 Plug 뒤에 적어줍니다.
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
+"Coloer schemes
+Plug 'sainnhe/gruvbox-material'
+"
+" C and C++ syntax
+Plug 'bfrg/vim-cpp-modern'
+
 call plug#end()
+
+"======= Automatically change the current directory =========================
+"autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
+
+"===vim-cpp-modern c and c++ syntax================================================================================
+" Disable function highlighting (affects both C and C++ files)
+let g:cpp_no_function_highlight = 0
+
+" Enable highlighting of C++11 attributes
+let g:cpp_attributes_highlight = 1
+
+" Highlight struct/class member variables (affects both C and C++ files)
+let g:cpp_member_highlight = 1
+
+" Put all standard C and C++ keywords under Vim's highlight group 'Statement'
+" (affects both C and C++ files)
+let g:cpp_simple_highlight = 0
+
+
 "End===========================================================================================================

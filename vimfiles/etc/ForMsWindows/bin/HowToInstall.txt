@@ -1,0 +1,3 @@
+cscope.exe, ctags.exe, rg.exe 파일을 gvim.exe가 있는 폴드(즉 Path 환경변수가
+		설정 되어 있는곳)으로 복사합니다.
+
