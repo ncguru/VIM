@@ -23,7 +23,8 @@ if has("win32")
 "set guifont=MS\ Gothic:h11:b
 "set guifont=Consolas:h11
 "set guifont=DejaVu_Sans_Mono_for_Powerline:h11
-set guifont=Consolas_NF:h11
+"set guifont=Consolas_NF:h11
+set guifont=Fira\ Code:h11
 "set guifont=D2Coding_ligature:h11
 "set guifont=Arimo:h11
 set guifontwide=MS\ Mincho:h11
@@ -50,7 +51,6 @@ set guioptions-=L  "remove left-hand scroll bar
 
 
 set rtp+=C:\Vim\vim82
-set rtp+=~/.vim/plugged
 
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
@@ -75,30 +75,6 @@ function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
-" Colorsheme---------------------------------------------------
-"colorscheme edge 
-
-" Colorsheme gruvbox---------------------------------------------------
-"colorscheme gruvbox 
-
-"set background=dark "gruvbox colormode"
-"let g:gruvbox_italicize_comments=0
-"let g:gruvbox_contrast_dark='medium'
-"let g:gruvbox_contrast_light='medium'
-
-" Colorsheme gruvbox-material--------------------------------------------------
-
-if has('termguicolors')
-	set termguicolors
-endif
-set background=dark
-let g:gruvbox_material_background = 'medium'
-let g:gruvbox_material_enable_italic = 1
-let g:gruvbox_material_disable_italic_comment = 1
-let g:gruvbox_material_current_word = 'bold'
-let g:gruvbox_material_enable_bold = 1 "To enable bold in function name just like the original gruvbox
-let g:gruvbox_material_diagnostic_virtual_text = 'colored'
-colorscheme gruvbox-material
 
 "setting-------------------------------------------------------
 set modifiable
@@ -139,42 +115,8 @@ set fillchars+=vert:┃
 " Folding C style
 set foldmethod=syntax
 set nofoldenable " defaut No folding "
-"------airline -------------------------------------------
-"let g:airline_theme='solarized'
-"let g:airline_solarized_bg='light'
-"let g:airline_theme='powerlineish'
-"let g:airline_theme='gruvbox'
-"let g:airline_theme='dark'
-"let g:airline_theme='jellybeans'
-"let g:airline_theme='light'
-let g:airline_theme='molokai'
-set laststatus=2
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-let g:airline#extensions#whitespace#mixed_indent_algo = 1
-let g:airline#extensions#branch#enabled = 1
 
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
 
-"let g:airline_left_sep = ' '
-"let g:airline_right_sep = ' 걼'
-"let g:airline_left_alt_sep = '걼 '
-"let g:airline_right_alt_sep = ''
-"let g:airline_symbols.crypt = '걳'
-"let g:airline_symbols.linenr = 'Line'
-"let g:airline_symbols.maxlinenr = ' Column'
-"let g:airline_symbols.branch = 'Branch:'
-"let g:airline_symbols.paste = 'P'
-"let g:airline_symbols.spell = 'S'
-"let g:airline_symbols.notexists = 'NOTEX'
-"let g:airline_symbols.whitespace = '■'
-"let g:airline_symbols.ellipsis = '...'
-"let g:airline_symbols.space = ' '
-"let g:airline_symbols.modified = '*'
-"let g:airline_symbols.readonly = 'ReadOnly'
 
 "======Beep Off======================================
 set noerrorbells visualbell t_vb=
@@ -183,9 +125,14 @@ if has('autocmd')
 endif
 
 "=Key Map=============================================
+" Map the leader key to ,
+let mapleader="\<SPACE>"
+
+
 " Hilight 표시 후에 Couser이동 하지 않게 하기 
 nnoremap * *N
 nnoremap gd gd<cr><C-o>
+nnoremap <silent> <Leader>rg :Rg <C-R><C-W><CR>
 
 map gr :grep <cword> *.c *.cpp *.h *.cs<CR>
 "----- Srcexpl Setting ----
@@ -267,23 +214,47 @@ inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
 "syntax---------------------------------------------------------------------------
 au BufRead,BufNewFile *.xaml setfiletype xml
 
-"==============================================================================================================
+"=Plugin=============================================================================================================
 " plug#begin 과 plug#end 사이에 사용하고 싶은 플러그인들을 선언해 줍니다.
 call plug#begin('~/.vim/plugged')
     "Plug 'GitHub계정명/저장소명'   " 추가하고 싶은 플러그인의 GitHub 저장소 주소를 Plug 뒤에 적어줍니다.
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+"airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
 "Coloer schemes
 Plug 'sainnhe/gruvbox-material'
 "
 " C and C++ syntax
 Plug 'bfrg/vim-cpp-modern'
+" Auto Rooter directory
+Plug 'airblade/vim-rooter'
+" Font Icon
+"Plug 'ryanoasis/vim-devicons'
+
+" syntax Color"
+Plug 'frazrepo/vim-rainbow'
+
 
 call plug#end()
 
+"========= rainbow Plugin Settin =========================================
+au FileType c,cpp,objc,objcpp,py call rainbow#load()
+
+let g:rainbow_active = 1
+
+
 "======= Automatically change the current directory =========================
 "autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
+
+"=======Plug 'airblade/vim-rooter'=========================
+"To specify the root has a certain directory or file (which may be a glob), just give the name:
+let g:rooter_patterns = ['.mxproject', 'cscope.out']
+" Change to file's directory (similar to autochdir).
+let g:rooter_change_directory_for_non_project_files = 'current'
 
 "===vim-cpp-modern c and c++ syntax================================================================================
 " Disable function highlighting (affects both C and C++ files)
@@ -299,5 +270,48 @@ let g:cpp_member_highlight = 1
 " (affects both C and C++ files)
 let g:cpp_simple_highlight = 0
 
+" Colorsheme gruvbox-material--------------------------------------------------
 
+if has('termguicolors')
+	set termguicolors
+endif
+set background=dark
+let g:gruvbox_material_palette = 'original'
+let g:gruvbox_material_background = 'medium'
+"let g:gruvbox_material_background = 'hard'
+"let g:gruvbox_material_enable_italic = 1
+let g:gruvbox_material_disable_italic_comment = 1
+let g:gruvbox_material_current_word = 'bold'
+let g:gruvbox_material_enable_bold = 1 "To enable bold in function name just like the original gruvbox
+let g:gruvbox_material_diagnostic_virtual_text = 'colored'
+colorscheme gruvbox-material
+
+"------airline -------------------------------------------
+"let g:airline_theme='solarized'
+"let g:airline_solarized_bg='light'
+"let g:airline_theme='powerlineish'
+"let g:airline_theme='gruvbox'
+"let g:airline_theme='dark'
+"let g:airline_theme='jellybeans'
+"let g:airline_theme='light'
+let g:airline_theme='molokai'
+
+set laststatus=2
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#whitespace#mixed_indent_algo = 1
+let g:airline#extensions#branch#enabled = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+"=========FZF=========================================================================================
+" For FZF bash
+let $PATH = "C:\\Program Files\\Git\\bin;" . $PATH
+" Preview window on the right side of the window,
+" hidden by default, ctrl-/ to toggle
+"let g:fzf_preview_window = ['right:hidden', 'ctrl-/']
+let g:fzf_preview_window = ['down:hidden', 'ctrl-/']
 "End===========================================================================================================
+

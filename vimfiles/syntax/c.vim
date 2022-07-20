@@ -492,6 +492,7 @@ syn match    cCustomClass    "\w\+\s*::" contains=cCustomScope
 
 hi def link cCustomFunc  Function
 hi def link cCustomClass Function
+
 " Kim Gisaeng Modified End===================================================
 
 let b:current_syntax = "c"
