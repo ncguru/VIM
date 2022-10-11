@@ -1,7 +1,7 @@
 "---한글 상용-------
 set enc=utf-8
 set fenc=utf-8
-set fencs=sjis,cp949,utf-8,ucs-bom,latin1
+set fencs=utf-8,sjis,cp949,ucs-bom,latin1
 set nobomb
 set langmenu=en_US.UTF-8 
 
@@ -50,7 +50,8 @@ set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
 
 
-set rtp+=C:\Vim\vim82
+set rtp+=C:\Vim\vim90
+set rtp+=C:\Vim\vimfiles
 
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
@@ -65,7 +66,7 @@ source $VIMRUNTIME/../vimfiles/plugin/autoload_cscope.vim
 "source $VIMRUNTIME/../vimfiles/ftplugin/cs_vis.vim
 "source $VIMRUNTIME/../vimfiles/ftplugin/html_vis.vim
 "source $VIMRUNTIME/../vimfiles/ftplugin/xml_vis.vim
-source $VIMRUNTIME/../vimfiles/plugin/EasyGrep.vim
+"source $VIMRUNTIME/../vimfiles/plugin/EasyGrep.vim
 source $VIMRUNTIME/../vimfiles/plugin/indentLine.vim
 source $VIMRUNTIME/../vimfiles/plugin/go.vim
 
@@ -92,8 +93,8 @@ set ignorecase
 set nobackup
 set notx
 "set list " Display Tab etc
-set noexpandtab
-"set expandtab " Tab을 Space로 사용한다 
+"set noexpandtab
+set expandtab " Tab을 Space로 사용한다 
 set nowrap "줄 Wrap를 하지 않음
 "텝표시 "
 "set list 
@@ -105,9 +106,9 @@ set noundofile
 "set cursorline
 " Oldfile 표시 수자 지정 
 "set viminfo='50
-set history=100
-" To Disable Logging HTML & Javascript autoindent
-let g:js_indent_log = 0 
+set history=50
+" To enable Logging HTML & Javascript autoindent
+let g:js_indent_log = 1 
 "Indentline For Tab
 set list lcs=tab:\|\ 
 "Window Board charator
@@ -227,22 +228,109 @@ Plug 'vim-airline/vim-airline-themes'
 
 "Coloer schemes
 Plug 'sainnhe/gruvbox-material'
-"
-" C and C++ syntax
-Plug 'bfrg/vim-cpp-modern'
+
 " Auto Rooter directory
 Plug 'airblade/vim-rooter'
+
 " Font Icon
 "Plug 'ryanoasis/vim-devicons'
+
+" C and C++ syntax
+"Plug 'bfrg/vim-cpp-modern'
+" html5 syntax
+"Plug 'othree/html5.vim'
 
 " syntax Color"
 Plug 'frazrepo/vim-rainbow'
 
+"lsp
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" snippet
+	" Track the engine.
+Plug 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+
+" Git 
+Plug 'tpope/vim-fugitive'
+
+" 20220305 - javascript syntax highlight
+Plug 'pangloss/vim-javascript'
+
+"html ccs
+"Plug 'emmetio/emmet'
+
+"syntax
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
-"========= rainbow Plugin Settin =========================================
-au FileType c,cpp,objc,objcpp,py call rainbow#load()
+"augroup filetypedetect
+	au! BufRead,BufNewFile *.hta setfiletype html
+"augroup end
+
+"======LSP===================================================================
+let g:lsp_settings_root_markers = [
+\   '.git',
+\   '.git/',
+\   '.svn',
+\   '.hg',
+\   '.bzr',
+\   '.mxproject', 
+\   'cscope.out',
+\   '.thisRoot',
+\ ]
+
+let g:lsp_diagnostics_enabled = 0
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+    
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+"===Snippent==============================================================
+" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
+" - https://github.com/Valloric/YouCompleteMe
+" - https://github.com/nvim-lua/completion-nvim
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical""
+"
+"
+"
+"========= rainbow Plugin Setting =========================================
+au FileType c,cpp,objc,objcpp,python,Javascript,html,txt call rainbow#load()
 
 let g:rainbow_active = 1
 
@@ -252,7 +340,7 @@ let g:rainbow_active = 1
 
 "=======Plug 'airblade/vim-rooter'=========================
 "To specify the root has a certain directory or file (which may be a glob), just give the name:
-let g:rooter_patterns = ['.mxproject', 'cscope.out']
+let g:rooter_patterns = ['.git', '.svn', '.mxproject', 'cscope.out', '.thisRoot']
 " Change to file's directory (similar to autochdir).
 let g:rooter_change_directory_for_non_project_files = 'current'
 
