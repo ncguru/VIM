@@ -24,10 +24,11 @@ if has("win32")
 "set guifont=Consolas:h11
 "set guifont=DejaVu_Sans_Mono_for_Powerline:h11
 "set guifont=Consolas_NF:h11
-set guifont=Fira\ Code:h11
+set guifont=Fira\ Code:h10
 "set guifont=D2Coding_ligature:h11
 "set guifont=Arimo:h11
-set guifontwide=MS\ Mincho:h11
+set guifontwide=MS\ Mincho:h10
+"set guifontwide=PlemolJP_Consolas_NF:h10
 "-----GUI Encoding Etc--------------
 "set fencs=ucs-bom,utf-8,cp949,latin1
 "set guifont=Consolas:h11
@@ -53,9 +54,11 @@ set guioptions-=L  "remove left-hand scroll bar
 set rtp+=C:\Vim\vim90
 set rtp+=C:\Vim\vimfiles
 
-source $VIMRUNTIME/vimrc_example.vim
+"source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 behave mswin
+
+set hlsearch
 
 endif " if Win32 
 "=========================================================================
@@ -67,8 +70,8 @@ source $VIMRUNTIME/../vimfiles/plugin/autoload_cscope.vim
 "source $VIMRUNTIME/../vimfiles/ftplugin/html_vis.vim
 "source $VIMRUNTIME/../vimfiles/ftplugin/xml_vis.vim
 "source $VIMRUNTIME/../vimfiles/plugin/EasyGrep.vim
-source $VIMRUNTIME/../vimfiles/plugin/indentLine.vim
-source $VIMRUNTIME/../vimfiles/plugin/go.vim
+"source $VIMRUNTIME/../vimfiles/plugin/indentLine.vim
+"source $VIMRUNTIME/../vimfiles/plugin/go.vim
 
 "-------------- QuicFix Window Height -------------------
 au FileType qf call AdjustWindowHeight(3, 40)
@@ -80,21 +83,23 @@ endfunction
 "setting-------------------------------------------------------
 set modifiable
 set nocompatible
+filetype plugin on
 syntax on 
 set nu
 set cindent
 set autoindent
 set sw=4
-set ts=4
+set tabstop=4
 set sts=4
 set smartindent
+"set list " Display Tab etc
+set noexpandtab
+"set expandtab " Tab을 Space로 사용한다 
+
 "대소 문자 구분
 set ignorecase
 set nobackup
 set notx
-"set list " Display Tab etc
-"set noexpandtab
-set expandtab " Tab을 Space로 사용한다 
 set nowrap "줄 Wrap를 하지 않음
 "텝표시 "
 "set list 
@@ -116,7 +121,6 @@ set fillchars+=vert:┃
 " Folding C style
 set foldmethod=syntax
 set nofoldenable " defaut No folding "
-
 
 
 "======Beep Off======================================
@@ -211,9 +215,22 @@ let IM_CtrlMode = 4
 "ctrl+jで日本語入力固定モードをOnOff
 inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
 
-"--------XAML file type
-"syntax---------------------------------------------------------------------------
+"-------- file type "syntax---------------------------------------------------------------------------
 au BufRead,BufNewFile *.xaml setfiletype xml
+
+"augroup filetypedetect
+	au! BufRead,BufNewFile *.hta setfiletype html
+"augroup end
+
+
+if exists("did_load_csvfiletype")
+  finish
+endif
+let did_load_csvfiletype=1
+
+"augroup filetypedetect
+  au! BufRead,BufNewFile *.csv,*.dat	setfiletype csv
+"augroup END
 
 "=Plugin=============================================================================================================
 " plug#begin 과 plug#end 사이에 사용하고 싶은 플러그인들을 선언해 줍니다.
@@ -236,7 +253,7 @@ Plug 'airblade/vim-rooter'
 "Plug 'ryanoasis/vim-devicons'
 
 " C and C++ syntax
-"Plug 'bfrg/vim-cpp-modern'
+Plug 'bfrg/vim-cpp-modern'
 " html5 syntax
 "Plug 'othree/html5.vim'
 
@@ -249,8 +266,8 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " snippet
-	" Track the engine.
-Plug 'SirVer/ultisnips'
+" Track the engine.
+"Plug 'SirVer/ultisnips'
 
 " Snippets are separated from the engine. Add this if you want them:
 Plug 'honza/vim-snippets'
@@ -265,13 +282,16 @@ Plug 'pangloss/vim-javascript'
 "Plug 'emmetio/emmet'
 
 "syntax
-Plug 'sheerun/vim-polyglot'
+"Plug 'sheerun/vim-polyglot'
+
+"CSV File
+Plug 'chrisbra/csv.vim'
+
+"oldfiles
+Plug 'gpanders/vim-oldfiles'
 
 call plug#end()
 
-"augroup filetypedetect
-	au! BufRead,BufNewFile *.hta setfiletype html
-"augroup end
 
 "======LSP===================================================================
 let g:lsp_settings_root_markers = [
@@ -340,7 +360,7 @@ let g:rainbow_active = 1
 
 "=======Plug 'airblade/vim-rooter'=========================
 "To specify the root has a certain directory or file (which may be a glob), just give the name:
-let g:rooter_patterns = ['.git', '.svn', '.mxproject', 'cscope.out', '.thisRoot']
+let g:rooter_patterns = ['.repo', '.git', '.svn', '.mxproject', 'cscope.out', '.thisRoot']
 " Change to file's directory (similar to autochdir).
 let g:rooter_change_directory_for_non_project_files = 'current'
 
