@@ -24,10 +24,10 @@ if has("win32")
 "set guifont=Consolas:h11
 "set guifont=DejaVu_Sans_Mono_for_Powerline:h11
 "set guifont=Consolas_NF:h11
-set guifont=Fira\ Code:h10
+set guifont=Fira\ Code:h11
 "set guifont=D2Coding_ligature:h11
 "set guifont=Arimo:h11
-set guifontwide=MS\ Mincho:h10
+set guifontwide=MS\ Mincho:h11
 "set guifontwide=PlemolJP_Consolas_NF:h10
 "-----GUI Encoding Etc--------------
 "set fencs=ucs-bom,utf-8,cp949,latin1
@@ -97,7 +97,7 @@ set noexpandtab
 "set expandtab " Tab을 Space로 사용한다 
 
 "대소 문자 구분
-set ignorecase
+"set ignorecase
 set nobackup
 set notx
 set nowrap "줄 Wrap를 하지 않음
@@ -236,6 +236,10 @@ let did_load_csvfiletype=1
 " plug#begin 과 plug#end 사이에 사용하고 싶은 플러그인들을 선언해 줍니다.
 call plug#begin('~/.vim/plugged')
     "Plug 'GitHub계정명/저장소명'   " 추가하고 싶은 플러그인의 GitHub 저장소 주소를 Plug 뒤에 적어줍니다.
+
+"taglist
+Plug 'yegappan/taglist'
+"FzF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
@@ -255,7 +259,7 @@ Plug 'airblade/vim-rooter'
 " C and C++ syntax
 Plug 'bfrg/vim-cpp-modern'
 " html5 syntax
-"Plug 'othree/html5.vim'
+Plug 'othree/html5.vim'
 
 " syntax Color"
 Plug 'frazrepo/vim-rainbow'
@@ -279,7 +283,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'pangloss/vim-javascript'
 
 "html ccs
-"Plug 'emmetio/emmet'
+Plug 'emmetio/emmet'
 
 "syntax
 "Plug 'sheerun/vim-polyglot'
@@ -295,13 +299,13 @@ call plug#end()
 
 "======LSP===================================================================
 let g:lsp_settings_root_markers = [
+\   'cscope.out',
 \   '.git',
 \   '.git/',
 \   '.svn',
 \   '.hg',
 \   '.bzr',
 \   '.mxproject', 
-\   'cscope.out',
 \   '.thisRoot',
 \ ]
 
@@ -360,7 +364,7 @@ let g:rainbow_active = 1
 
 "=======Plug 'airblade/vim-rooter'=========================
 "To specify the root has a certain directory or file (which may be a glob), just give the name:
-let g:rooter_patterns = ['.repo', '.git', '.svn', '.mxproject', 'cscope.out', '.thisRoot']
+let g:rooter_patterns = ['cscope.out', '.repo', '.git', '.svn', '.mxproject', '.thisRoot']
 " Change to file's directory (similar to autochdir).
 let g:rooter_change_directory_for_non_project_files = 'current'
 
@@ -421,5 +425,8 @@ let $PATH = "C:\\Program Files\\Git\\bin;" . $PATH
 " hidden by default, ctrl-/ to toggle
 "let g:fzf_preview_window = ['right:hidden', 'ctrl-/']
 let g:fzf_preview_window = ['down:hidden', 'ctrl-/']
+
+
+
 "End===========================================================================================================
 
