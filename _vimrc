@@ -24,11 +24,12 @@ if has("win32")
 "set guifont=Consolas:h11
 "set guifont=DejaVu_Sans_Mono_for_Powerline:h11
 "set guifont=Consolas_NF:h11
-set guifont=Fira\ Code:h11
+set guifont=Fira\ Code:h12
+"set guifont=PlemolJP_Console_NF:h12
 "set guifont=D2Coding_ligature:h11
 "set guifont=Arimo:h11
-set guifontwide=MS\ Mincho:h11
-"set guifontwide=PlemolJP_Consolas_NF:h10
+"set guifontwide=MS\ Mincho:h12
+set guifontwide=PlemolJP_Console_NF:h12
 "-----GUI Encoding Etc--------------
 "set fencs=ucs-bom,utf-8,cp949,latin1
 "set guifont=Consolas:h11
@@ -38,11 +39,23 @@ set guifontwide=MS\ Mincho:h11
 "set laststatus=2 "항상 상태바가 나오도록 설정한다.
 "set statusline=%<%f\|%m%r%h%y\ [%Y/%{&ff}/%{\(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}]%=[%04l(%p%%\|%P),%04v\|\%03.3b,\%02.2B]
 
+"--------------vim 7 이상부터는 direct-x 를 통한 렌더링 가속을 지원하므로 direct-x로 렌더링을 설정하면 GDI 에 비해 glyph 들을 더 빠르고 가독성 좋게 렌더링합니다.
+set renderoptions=type:directx,
+                        \gamma:1.0,
+                        \contrast:0.5,
+                        \level:1,
+                        \geom:1,
+                        \renmode:5,
+                        \taamode:1
 
 "====GUI 이면, 시작시 크기 설정========================
 if has("gui_running")
-    set lines=89
-    set co=114
+" Size 지정
+    set lines=90
+    set co=250
+	winpos  0 0
+" Size 전체 화면
+	au GUIEnter * simalt ~x
 endif
 "GUI 설정 
 set guioptions-=m  "remove menu bar
@@ -97,12 +110,10 @@ set noexpandtab
 "set expandtab " Tab을 Space로 사용한다 
 
 "대소 문자 구분
-"set ignorecase
+set ignorecase
 set nobackup
 set notx
 set nowrap "줄 Wrap를 하지 않음
-"텝표시 "
-"set list 
 " backup file 만들지 않는다.
 set nobackup
 " un~ Undo파일을 만들지 않는다.
@@ -111,7 +122,7 @@ set noundofile
 "set cursorline
 " Oldfile 표시 수자 지정 
 "set viminfo='50
-set history=50
+"set history=10
 " To enable Logging HTML & Javascript autoindent
 let g:js_indent_log = 1 
 "Indentline For Tab
@@ -139,7 +150,7 @@ nnoremap * *N
 nnoremap gd gd<cr><C-o>
 nnoremap <silent> <Leader>rg :Rg <C-R><C-W><CR>
 
-map gr :grep <cword> *.c *.cpp *.h *.cs<CR>
+map gr :grep <cword> *.c *.cpp *.h *.cs *.js *.hta *.html *.py<CR>
 "----- Srcexpl Setting ----
 
 map <F1> zM
@@ -215,27 +226,17 @@ let IM_CtrlMode = 4
 "ctrl+jで日本語入力固定モードをOnOff
 inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
 
-"-------- file type "syntax---------------------------------------------------------------------------
-au BufRead,BufNewFile *.xaml setfiletype xml
-
-"augroup filetypedetect
-	au! BufRead,BufNewFile *.hta setfiletype html
-"augroup end
-
-
-if exists("did_load_csvfiletype")
-  finish
-endif
-let did_load_csvfiletype=1
-
-"augroup filetypedetect
-  au! BufRead,BufNewFile *.csv,*.dat	setfiletype csv
-"augroup END
 
 "=Plugin=============================================================================================================
 " plug#begin 과 plug#end 사이에 사용하고 싶은 플러그인들을 선언해 줍니다.
 call plug#begin('~/.vim/plugged')
     "Plug 'GitHub계정명/저장소명'   " 추가하고 싶은 플러그인의 GitHub 저장소 주소를 Plug 뒤에 적어줍니다.
+"괄호
+"Plug 'vim-scripts/matchparenpp'                       " 괄호 확인
+"Plug 'townk/vim-autoclose'                " 자동 괄호 닫힘
+
+"Session
+Plug 'mhinz/vim-startify'
 
 "taglist
 Plug 'yegappan/taglist'
@@ -247,8 +248,11 @@ Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-"Coloer schemes
+"Colorschemes
 Plug 'sainnhe/gruvbox-material'
+Plug 'tomasr/molokai'
+Plug 'morhetz/gruvbox'
+Plug 'dracula/vim'
 
 " Auto Rooter directory
 Plug 'airblade/vim-rooter'
@@ -258,6 +262,7 @@ Plug 'airblade/vim-rooter'
 
 " C and C++ syntax
 Plug 'bfrg/vim-cpp-modern'
+
 " html5 syntax
 Plug 'othree/html5.vim'
 
@@ -269,12 +274,16 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
 " snippet
 " Track the engine.
 "Plug 'SirVer/ultisnips'
 
+"Plug 'thomasfaingnaert/vim-lsp-snippets'
+"Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
-Plug 'honza/vim-snippets'
+" This repository contains snippets files
+"Plug 'honza/vim-snippets'
 
 " Git 
 Plug 'tpope/vim-fugitive'
@@ -294,22 +303,68 @@ Plug 'chrisbra/csv.vim'
 "oldfiles
 Plug 'gpanders/vim-oldfiles'
 
+
+Plug 'johngrib/vim-game-code-break'
+
 call plug#end()
 
 
 "======LSP===================================================================
 let g:lsp_settings_root_markers = [
+\   '.repo',
 \   'cscope.out',
-\   '.git',
-\   '.git/',
-\   '.svn',
-\   '.hg',
-\   '.bzr',
-\   '.mxproject', 
 \   '.thisRoot',
 \ ]
 
+"let g:lsp_settings_root_markers = [
+"\   'cscope.out',
+"\   '.git',
+"\   '.git/',
+"\   '.svn',
+"\   '.hg',
+"\   '.bzr',
+"\   '.mxproject', 
+"\   '.thisRoot',
+"\ ]
+"
+
 let g:lsp_diagnostics_enabled = 0
+
+if executable('pylsp')
+    " pip install python-lsp-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pylsp',
+        \ 'cmd': {server_info->['pylsp']},
+        \ 'allowlist': ['python'],
+        \ })
+endif
+
+
+if executable('clangd')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'clangd',
+        \ 'cmd': {server_info->['clangd', '-background-index']},
+        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+        \ })
+endif
+
+
+if executable("deno")
+  augroup LspTypeScript
+    autocmd!
+    autocmd User lsp_setup call lsp#register_server({
+    \ "name": "deno lsp",
+    \ "cmd": {server_info -> ["deno", "lsp"]},
+    \ "root_uri": {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), "tsconfig.json"))},
+    \ "allowlist": ["typescript", "typescript.tsx"],
+    \ "initialization_options": {
+    \     "enable": v:true,
+    \     "lint": v:true,
+    \     "unstable": v:true,
+    \   },
+    \ })
+  augroup END
+endif
 
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
@@ -352,19 +407,38 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical""
 "
 "
-"
-"========= rainbow Plugin Setting =========================================
-au FileType c,cpp,objc,objcpp,python,Javascript,html,txt call rainbow#load()
+""-------- file type "syntax---------------------------------------------------------------------------
+au BufRead,BufNewFile *.xaml setfiletype xml
+au BufRead,BufNewFile *.hta setfiletype Javascript
 
+
+if exists("did_load_csvfiletype")
+	finish
+endif
+
+let did_load_csvfiletype=1
+
+au BufRead,BufNewFile *.csv,*.dat	setfiletype csv
+"========= rainbow Plugin Setting =========================================
+au FileType c,cpp,objc,objcpp,python,Javascript,html,txt,hta,js call rainbow#load()
 let g:rainbow_active = 1
 
-
+"======================CSCOPE Auto load====================================================
+au  BufRead *
+	\if has("cscope")
+		\add any database in current dir
+		\if filereadable("cscope.out")
+			\cs add cscope.out
+		\endif
+	\endif
+"
 "======= Automatically change the current directory =========================
 "autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
 
 "=======Plug 'airblade/vim-rooter'=========================
 "To specify the root has a certain directory or file (which may be a glob), just give the name:
-let g:rooter_patterns = ['cscope.out', '.repo', '.git', '.svn', '.mxproject', '.thisRoot']
+"let g:rooter_patterns = ['cscope.out', '.repo', '.git', '.svn', '.mxproject', '.thisRoot']
+let g:rooter_patterns = ['.repo', 'cscope.out', '.thisRoot']
 " Change to file's directory (similar to autochdir).
 let g:rooter_change_directory_for_non_project_files = 'current'
 
@@ -382,6 +456,7 @@ let g:cpp_member_highlight = 1
 " (affects both C and C++ files)
 let g:cpp_simple_highlight = 0
 
+
 " Colorsheme gruvbox-material--------------------------------------------------
 
 if has('termguicolors')
@@ -389,14 +464,24 @@ if has('termguicolors')
 endif
 set background=dark
 let g:gruvbox_material_palette = 'original'
-let g:gruvbox_material_background = 'medium'
-"let g:gruvbox_material_background = 'hard'
+"let g:gruvbox_material_background = 'medium'
+let g:gruvbox_material_background = 'hard'
 "let g:gruvbox_material_enable_italic = 1
 let g:gruvbox_material_disable_italic_comment = 1
-let g:gruvbox_material_current_word = 'bold'
+"let g:gruvbox_material_current_word = 'bold'
 let g:gruvbox_material_enable_bold = 1 "To enable bold in function name just like the original gruvbox
 let g:gruvbox_material_diagnostic_virtual_text = 'colored'
-colorscheme gruvbox-material
+
+" colorsheme jellybeans --------------------------------------------------------
+let g:jellybeans_use_gui_italics = 0
+let g:jellybeans_use_term_italics = 0
+
+
+"colorscheme gruvbox-material
+"colorscheme jellybeans
+colorscheme molokai_noitalic
+
+
 
 "------airline -------------------------------------------
 "let g:airline_theme='solarized'
@@ -423,10 +508,27 @@ endif
 let $PATH = "C:\\Program Files\\Git\\bin;" . $PATH
 " Preview window on the right side of the window,
 " hidden by default, ctrl-/ to toggle
+let g:fzf_layout = { 'down': '~80%' }
+let g:fzf_preview_window = [] " disable
 "let g:fzf_preview_window = ['right:hidden', 'ctrl-/']
-let g:fzf_preview_window = ['down:hidden', 'ctrl-/']
+"let g:fzf_preview_window = ['down:hidden', 'ctrl-/']
 
 
 
+"=======================Plug 'SirVer/ultisnips'======================
+"let g:UltiSnipsExpandTrigger="<Tab>"
+"let g:UltiSnipsJumpForwardTrigger="<Tab>"
+"let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+"let g:UltiSnipsEditSplit="vertical"
+"" let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips']
+"let g:UltiSnipsSnippetDirectories = ['UltiSnips']
+"
+"=======================Plug 'startify'======================
+"Enable the option only in case you think Vim starts too slowly (because of
+":Startify) or if you often edit files on remote filesystems.
+let g:startify_enable_unsafe = 1
+
+"=======================Game====================================
+let g:vim_game_code_break_item_limit = 1    " default value is 2
 "End===========================================================================================================
 
