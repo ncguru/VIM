@@ -25,7 +25,7 @@ if has("win32")
 "set guifont=DejaVu_Sans_Mono_for_Powerline:h11
 "set guifont=Consolas_NF:h11
 set guifont=Fira\ Code:h12
-"set guifont=PlemolJP_Console_NF:h12
+"set guifont=PlemolJP_Console_NF:h13
 "set guifont=D2Coding_ligature:h11
 "set guifont=Arimo:h11
 "set guifontwide=MS\ Mincho:h12
@@ -64,7 +64,7 @@ set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
 
 
-set rtp+=C:\Vim\vim90
+set rtp+=C:\Vim\vim91
 set rtp+=C:\Vim\vimfiles
 
 "source $VIMRUNTIME/vimrc_example.vim
@@ -78,13 +78,6 @@ endif " if Win32
 
 source $VIMRUNTIME/../vimfiles/plugin/cscope_maps.vim
 source $VIMRUNTIME/../vimfiles/plugin/autoload_cscope.vim
-"source $VIMRUNTIME/../vimfiles/ftplugin/java_vis.vim
-"source $VIMRUNTIME/../vimfiles/ftplugin/cs_vis.vim
-"source $VIMRUNTIME/../vimfiles/ftplugin/html_vis.vim
-"source $VIMRUNTIME/../vimfiles/ftplugin/xml_vis.vim
-"source $VIMRUNTIME/../vimfiles/plugin/EasyGrep.vim
-"source $VIMRUNTIME/../vimfiles/plugin/indentLine.vim
-"source $VIMRUNTIME/../vimfiles/plugin/go.vim
 
 "-------------- QuicFix Window Height -------------------
 au FileType qf call AdjustWindowHeight(3, 40)
@@ -217,14 +210,15 @@ let g:DoxygenToolkit_briefTag_namespaceName = "yes"
 "netrw-----------------------------------------------------
 let g:netrw_liststyle = 3
 
-"==== IME 입력 모드에서 명령모드 변경시 IME 영문으로 자동 변경============
+"==== IME 입력 모드에서 명령모드 변경시 IME 영문으로 자동변경============= 
+"- 현재는IM-select를 Plugin을 사용하고 있으므로 아래설정은 비활성화 한다
 "コマンドラインの高さを2に
-set cmdheight=1
+"set cmdheight=1
 
 "<C-^>でIM制御が行える場合の設定
-let IM_CtrlMode = 4
+"let IM_CtrlMode = 4
 "ctrl+jで日本語入力固定モードをOnOff
-inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
+"inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
 
 
 "=Plugin=============================================================================================================
@@ -261,7 +255,7 @@ Plug 'airblade/vim-rooter'
 "Plug 'ryanoasis/vim-devicons'
 
 " C and C++ syntax
-Plug 'bfrg/vim-cpp-modern'
+"Plug 'bfrg/vim-cpp-modern'
 
 " html5 syntax
 Plug 'othree/html5.vim'
@@ -297,15 +291,14 @@ Plug 'emmetio/emmet'
 "syntax
 "Plug 'sheerun/vim-polyglot'
 
-"CSV File
-Plug 'chrisbra/csv.vim'
-
 "oldfiles
 Plug 'gpanders/vim-oldfiles'
 
+"Rianbow Color CSV 
+Plug 'mechatroner/rainbow_csv'
 
-Plug 'johngrib/vim-game-code-break'
-
+"IME자동 복귀 기능
+Plug 'brglng/vim-im-select'
 call plug#end()
 
 
@@ -411,14 +404,6 @@ let g:UltiSnipsEditSplit="vertical""
 au BufRead,BufNewFile *.xaml setfiletype xml
 au BufRead,BufNewFile *.hta setfiletype Javascript
 
-
-if exists("did_load_csvfiletype")
-	finish
-endif
-
-let did_load_csvfiletype=1
-
-au BufRead,BufNewFile *.csv,*.dat	setfiletype csv
 "========= rainbow Plugin Setting =========================================
 au FileType c,cpp,objc,objcpp,python,Javascript,html,txt,hta,js call rainbow#load()
 let g:rainbow_active = 1
@@ -457,29 +442,36 @@ let g:cpp_member_highlight = 1
 let g:cpp_simple_highlight = 0
 
 
-" Colorsheme gruvbox-material--------------------------------------------------
-
+" Colorsheme
+set background=dark
 if has('termguicolors')
 	set termguicolors
 endif
-set background=dark
+" Colorsheme gruvbox   --------------------------------------------------
+let g:gruvbox_italic = 0
+"let g:gruvbox_contrast_dark = 'soft'
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_bold = 0
+let g:gruvbox_improved_strings=0
+" Colorsheme gruvbox-material--------------------------------------------------
+
 let g:gruvbox_material_palette = 'original'
-"let g:gruvbox_material_background = 'medium'
-let g:gruvbox_material_background = 'hard'
+"soft hard, medium"
+let g:gruvbox_material_background = 'soft' 
 "let g:gruvbox_material_enable_italic = 1
 let g:gruvbox_material_disable_italic_comment = 1
 "let g:gruvbox_material_current_word = 'bold'
-let g:gruvbox_material_enable_bold = 1 "To enable bold in function name just like the original gruvbox
+let g:gruvbox_material_enable_bold = 0 "To enable bold in function name just like the original gruvbox
 let g:gruvbox_material_diagnostic_virtual_text = 'colored'
 
 " colorsheme jellybeans --------------------------------------------------------
 let g:jellybeans_use_gui_italics = 0
 let g:jellybeans_use_term_italics = 0
 
-
 "colorscheme gruvbox-material
 "colorscheme jellybeans
-colorscheme molokai_noitalic
+"colorscheme molokai_noitalic
+colorscheme gruvbox_custom
 
 
 
@@ -487,11 +479,11 @@ colorscheme molokai_noitalic
 "let g:airline_theme='solarized'
 "let g:airline_solarized_bg='light'
 "let g:airline_theme='powerlineish'
-"let g:airline_theme='gruvbox'
+let g:airline_theme='base16_gruvbox_dark_hard'
 "let g:airline_theme='dark'
 "let g:airline_theme='jellybeans'
 "let g:airline_theme='light'
-let g:airline_theme='molokai'
+"let g:airline_theme='molokai'
 
 set laststatus=2
 let g:airline_powerline_fonts = 1
@@ -528,7 +520,5 @@ let g:fzf_preview_window = [] " disable
 ":Startify) or if you often edit files on remote filesystems.
 let g:startify_enable_unsafe = 1
 
-"=======================Game====================================
-let g:vim_game_code_break_item_limit = 1    " default value is 2
 "End===========================================================================================================
 
