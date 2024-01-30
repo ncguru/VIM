@@ -238,15 +238,18 @@ Plug 'yegappan/taglist'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+"Tree
+Plug 'preservim/nerdtree'
+
 "airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 "Colorschemes
-Plug 'sainnhe/gruvbox-material'
+"Plug 'sainnhe/gruvbox-material'
 Plug 'tomasr/molokai'
 Plug 'morhetz/gruvbox'
-Plug 'dracula/vim'
+"Plug 'dracula/vim'
 
 " Auto Rooter directory
 Plug 'airblade/vim-rooter'
@@ -260,8 +263,6 @@ Plug 'airblade/vim-rooter'
 " html5 syntax
 Plug 'othree/html5.vim'
 
-" syntax Color"
-Plug 'frazrepo/vim-rainbow'
 
 "lsp
 Plug 'prabirshrestha/vim-lsp'
@@ -295,12 +296,23 @@ Plug 'emmetio/emmet'
 Plug 'gpanders/vim-oldfiles'
 
 "Rianbow Color CSV 
-Plug 'mechatroner/rainbow_csv'
+"Plug 'mechatroner/rainbow_csv'
 
 "IME자동 복귀 기능
 Plug 'brglng/vim-im-select'
+
+" Functionalities - Python
+Plug 'psf/black', { 'branch': 'stable' }
+Plug 'heavenshell/vim-pydocstring'
+
+" syntax Color"
+Plug 'frazrepo/vim-rainbow'
+
+
 call plug#end()
 
+
+let g:rainbow_active = 1
 
 "======LSP===================================================================
 let g:lsp_settings_root_markers = [
@@ -403,10 +415,6 @@ let g:UltiSnipsEditSplit="vertical""
 ""-------- file type "syntax---------------------------------------------------------------------------
 au BufRead,BufNewFile *.xaml setfiletype xml
 au BufRead,BufNewFile *.hta setfiletype Javascript
-
-"========= rainbow Plugin Setting =========================================
-au FileType c,cpp,objc,objcpp,python,Javascript,html,txt,hta,js call rainbow#load()
-let g:rainbow_active = 1
 
 "======================CSCOPE Auto load====================================================
 au  BufRead *
