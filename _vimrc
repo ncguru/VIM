@@ -232,6 +232,9 @@ call plug#begin('~/.vim/plugged')
 "Session
 Plug 'mhinz/vim-startify'
 
+"indent guide line
+Plug 'Yggdroot/indentLine'
+
 "taglist
 Plug 'yegappan/taglist'
 "FzF
@@ -310,6 +313,9 @@ Plug 'frazrepo/vim-rainbow'
 
 
 call plug#end()
+
+"Indent Guides
+let g:indentLine_enabled = 1
 
 
 let g:rainbow_active = 1
